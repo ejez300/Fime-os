@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fimeños</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+
+<header class="row">
+  <div class="logoholder text-center" >
+    <img src="assets/img/logo.png" width="100%">
+  </div><!--.logoholder-->
+
+  <div class="me">
+    <p contenteditable>
+      <strong>Fimeños</strong><br>
+      San Nicolas NL<br>
+      Mexico<br>
+      
+    </p>
+  </div><!--.me-->
+
+  <div class="info">
+    <p contenteditable>
+      Web: <a href="">www.Fimeños.com</a><br>
+      E-mail: <a href="mailto:info@obedalvarado.pw">fimeños@gmail.com</a><br>
+      Tel: +8183294020<br>
+    </p>
+  </div><!-- .info -->
+
+  <div class="bank">
+    <p contenteditable>
+      Datos bacarios: 7089-5560-1234-5657 <br>
+      Titular de la cuenta: fimeños<br>
+      IBAN: 00<br>
+      BIC: 00
+    </p>
+  </div><!--.bank-->
+
+</header>
+
+
+<div class="row section">
+
+	<div class="col-2">
+    <h1 contenteditable>Facturacion Fimeños</h1>
+  </div><!--.col-->
+
+  <div class="col-2 text-right details">
+    <p contenteditable>
+      Fecha: <input type="text" class="datePicker" /><br>
+      Factura #: <input type="text" value="1" /><br>
+     Vence: <input class="twoweeks" type="text"/>
+    </p>
+  </div><!--.col-->
+  
+  
+  
+  <div class="col-2">
+    <p class="client">
+      <strong>Emisor</strong><br>
+      Fimeños S.A de C.V<br>
+      Pedro de Alba #13<br>
+      8183294020
+      <p contenteditable class="client">
+        RFC: GMAK123A<br>
+        Regimen Fiscal: 601
+      </p>
+    </p>  
+    
+    
+  </div><!--.col-->
+  
+  
+  <div class="col-2">
+   
+
+    <p contenteditable class="client">
+      <strong>Receptor</strong><br>
+      [Nombre]<br>
+      [Direccion]<br>
+	  [RFC-Receptor]<br>
+	  Regimen Fiscal: 605
+    </p>
+  </div><!--.col-->
+
+  
+
+</div><!--.row-->
+
+<div class="row section" style="margin-top:-1rem">
+<div class="col-1">
+  
+	<table style='width:100%'>
+    <thead contenteditable>
+	<tr class="invoice_detail">
+      <th width="25%" style="text-align">Vendedor</th>
+       <th width="25%">Orden de compra </th>
+      <th width="20%">Enviar por</th>
+      <th width="30%">Términos y condiciones</th>
+	 </tr> 
+    </thead>
+    <tbody contenteditable>
+	<tr class="invoice_detail">
+      <td width="25%" style="text-align">Eduardo Esparza</td>
+       <td width="25%">#PO-2020 </td>
+      <td width="20%">DHL</td>
+      <td width="30%">Pago al contado</td>
+	 </tr>
+	</tbody>
+	</table>
+
+</div>
+
+</div><!--.row-->
+
+<div class="invoicelist-body">
+  <table>
+    <thead contenteditable>
+      <th width="5%">Código</th>
+      <th width="50%">Descripción</th>
+      <th width="10%">Descuentos</th>
+      <th width="10%">Cant.</th>
+      <th width="15%">Precio</th>
+      <th class="taxrelated">IVA</th>
+      <th width="10%">Total</th>
+    </thead>
+    <tbody>
+      <tr>
+        <td width='5%'><a class="control removeRow" href="#">x</a> <span contenteditable>12345</span></td>
+        <td width='50%'><span contenteditable>Descripción</span></td>
+        <td class="desc"><input type="text" value="0"></td>
+        <td class="amount"><input type="text" value="1"/></td>
+        <td class="rate"><input type="text" value="99" /></td>
+        <td class="tax taxrelated"></td>
+        <td class="sum"></td>
+      </tr>
+    </tbody>
+  </table>
+  <a class="control newRow" href="#">+ Nueva fila</a>
+</div><!--.invoice-body-->
+</br></br>
+</br>
+</br>
+
+      <div class="col-2-4">
+        <div class="slogan">Facturación </div>
+
+        <label for="config_tax">IVA:
+          <input type="checkbox" id="config_tax" />
+        </label>
+        <label for="config_tax_rate" class="taxrelated">Tasa:
+          <input type="text" id="config_tax_rate" value="16"/>%
+        </label>
+        <label for="config_note">Nota:
+          <input type="checkbox" id="config_note" />
+        </label>
+        
+      </div>
+
+
+<div class="invoicelist-footer">
+  <table contenteditable>
+   
+    <tr class="taxrelated">
+      <td>IVA:</td>
+      <td id="total_tax"></td>
+    </tr>
+    <tr>
+      <td><strong>Descuento:</strong></td>
+      <td id="des"></td>
+    </tr>
+    <tr>
+      <td><strong>Total:</strong></td>
+      <td id="total_price"></td>
+    </tr>
+  </table>
+</div>
+
+<div class="note" contenteditable>
+  <h2>Nota:</h2>
+</div><!--.note-->
+<button onclick="descargarXML()">Descargar XML</button>
+
+<script>
+    function descargarXML() {
+        // Crear un objeto XML
+        var xmlDoc = document.implementation.createDocument(null, 'factura', null);
+
+        // Función para agregar elementos al XML
+        function agregarElemento(padre, nombre, valor) {
+            var elemento = xmlDoc.createElement(nombre);
+            elemento.appendChild(xmlDoc.createTextNode(valor));
+            padre.appendChild(elemento);
+        }
+
+        // Obtener todos los elementos <p> y agregar sus textos al XML
+        var elementosP = document.querySelectorAll('p');
+        var informacion = xmlDoc.createElement('informacion');
+
+        elementosP.forEach(function(elementoP, indice) {
+            agregarElemento(informacion, 'Datos' + (indice + 1), elementoP.textContent.trim());
+        });
+
+       
+        xmlDoc.documentElement.appendChild(informacion);
+
+        // Crear un Blob y descargar el archivo
+        var xmlContent = new XMLSerializer().serializeToString(xmlDoc);
+        var blob = new Blob([xmlContent], { type: 'application/xml' });
+        var link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.download = 'factura.xml';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+</script>
+
+<footer class="row">
+  <div class="col-1 text-center">
+    <p class="notaxrelated" contenteditable>El monto de la factura no incluye el impuesto sobre las ventas.</p>
+  </div>
+</br></br></br>
+  <div class="col-4 text-right">
+    <a href="javascript:window.print()">Imprimir</a>
+  </div><!--.col-->
+  
+</footer>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="assets/bower_components/jquery/dist/jquery.min.js"><\/script>')</script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
